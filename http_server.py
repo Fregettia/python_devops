@@ -28,6 +28,7 @@ columns = [
     "state",
 ]
 
+
 # if not os.path.exists(db_file):
 #     df = pd.DataFrame(columns=columns)
 #     df.to_csv(db_file, index=False)
@@ -39,7 +40,7 @@ def flatten_device(device):
         **{f"hardware_{k}": v for k, v in device["hardware"].items()},
         **{f"software_{k}": v for k, v in device["software"].items()},
         **{
-            f"nic{i+1}_{k}": v
+            f"nic{i + 1}_{k}": v
             for i, nic in enumerate(device["nic"][:2])
             for k, v in nic.items()
         },
@@ -48,16 +49,20 @@ def flatten_device(device):
 
 @app.post("/v1/devices/add")
 async def add_device(request: Request):
-    device = request.json
+    devices = request.json["data"]
     df = pd.read_csv(db_file)
 
-    if device["id"] in df["id"].values:
-        return json({"status": 400, "msg": "Device ID already exists."}, status=400)
+    for device in devices:
+        if device["id"] in df["id"].values:
+            return json(
+                {"status": 400, "msg": f"Device ID {device['id']} already exists."},
+                status=400,
+            )
 
-    device = flatten_device(device)
-    df = df.append(device, ignore_index=True)
+        flat_device = flatten_device(device)
+        df = df.append(flat_device, ignore_index=True)
+
     df.to_csv(db_file, index=False)
-
     return json({"status": "success", "data": None})
 
 
@@ -90,4 +95,4 @@ async def query_all_devices():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=server_port)
+    app.run(host="localhost", port=server_port)
