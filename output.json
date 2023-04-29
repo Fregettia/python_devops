@@ -1,0 +1,53 @@
+{
+  "status": "success",
+  "data": [
+    {
+      "id": 7675,
+      "name": "fiyp5",
+      "type": "controller",
+      "hardware_model": "x86 PC",
+      "hardware_sn": "32rkmknb",
+      "software_version": 10.3,
+      "software_last_update": "2021-04-17 14:10:48",
+      "nic1_type": "eth",
+      "nic1_mac": "da:ad:e1:8e:26:a9",
+      "nic1_ipv4": "13.130.229.255",
+      "nic2_type": NaN,
+      "nic2_mac": NaN,
+      "nic2_ipv4": NaN,
+      "state": "off-line"
+    },
+    {
+      "id": 7677,
+      "name": "ba61g",
+      "type": "controller",
+      "hardware_model": "Raspberry Pi 4",
+      "hardware_sn": "av9ghcv2",
+      "software_version": 6.2,
+      "software_last_update": "2021-04-16 04:50:14",
+      "nic1_type": "eth",
+      "nic1_mac": "7b:67:f4:99:72:5b",
+      "nic1_ipv4": "27.246.137.137",
+      "nic2_type": "wifi",
+      "nic2_mac": "9c:02:40:3f:a3:fb",
+      "nic2_ipv4": "33.161.116.123",
+      "state": "off-line"
+    },
+    {
+      "id": 7680,
+      "name": "fiyp5",
+      "type": "controller",
+      "hardware_model": "x86 PC",
+      "hardware_sn": "32rkmknb",
+      "software_version": 10.3,
+      "software_last_update": "2021-04-17 14:10:48",
+      "nic1_type": "eth",
+      "nic1_mac": "da:ad:e1:8e:26:a9",
+      "nic1_ipv4": "13.130.229.255",
+      "nic2_type": NaN,
+      "nic2_mac": NaN,
+      "nic2_ipv4": NaN,
+      "state": "off-line"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+id,name,type,hardware_model,hardware_sn,software_version,software_last_update,nic1_type,nic1_mac,nic1_ipv4,nic2_type,nic2_mac,nic2_ipv4,state
+7675,fiyp5,controller,x86 PC,32rkmknb,10.3,2021-04-17 14:10:48,eth,da:ad:e1:8e:26:a9,13.130.229.255,,,,off-line
+7677,ba61g,controller,Raspberry Pi 4,av9ghcv2,6.2,2021-04-16 04:50:14,eth,7b:67:f4:99:72:5b,27.246.137.137,wifi,9c:02:40:3f:a3:fb,33.161.116.123,off-line
+7680,fiyp5,controller,x86 PC,32rkmknb,10.3,2021-04-17 14:10:48,eth,da:ad:e1:8e:26:a9,13.130.229.255,,,,off-line

@@ -27,7 +27,7 @@ def send_request(payload, url):
 
 def main():
     input_data = load_input_json(input_json)
-    url = f"http://{server_ip}:{server_port}/"
+    url = f"http://{server_ip}:{server_port}/v1/devices/"
 
     method = input_data["method"]
     payload = input_data["data"]

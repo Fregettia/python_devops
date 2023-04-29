@@ -47,9 +47,9 @@ def flatten_device(device):
     }
 
 
-@app.post("/v1/devices/add")
+@app.post("/v1/devices/ADD")
 async def add_device(request: Request):
-    devices = request.json["data"]
+    devices = request.json
     df = pd.read_csv(db_file)
 
     for device in devices:
@@ -66,9 +66,9 @@ async def add_device(request: Request):
     return json({"status": "success", "data": None})
 
 
-@app.delete("/v1/devices/DELETE")
+@app.post("/v1/devices/DELETE")
 async def delete_device(request: Request):
-    device_ids = request.json["data"]
+    device_ids = request.json
     df = pd.read_csv(db_file)
 
     df = df[~df["id"].isin(device_ids)]
@@ -79,7 +79,7 @@ async def delete_device(request: Request):
 
 @app.post("/v1/devices/QUERY")
 async def query_device(request: Request):
-    device_ids = request.json["data"]
+    device_ids = request.json
     df = pd.read_csv(db_file)
 
     queried_devices = df[df["id"].isin(device_ids)].to_dict(orient='records')
@@ -88,7 +88,7 @@ async def query_device(request: Request):
 
 
 @app.post("/v1/devices/QUERYALL")
-async def query_all_devices():
+async def query_all_devices(request: Request):
     df = pd.read_csv(db_file)
     all_devices = df.to_dict(orient='records')
     return json({"status": "success", "data": all_devices})

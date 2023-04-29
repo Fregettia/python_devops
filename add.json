@@ -1,0 +1,52 @@
+{
+    "method": "ADD",
+    "data": [
+        {
+            "id": "7677",
+            "name": "ba61g",
+            "type": "controller",
+            "hardware": {
+                "model": "Raspberry Pi 4",
+                "sn": "av9ghcv2"
+            },
+            "software": {
+                "version": "6.2",
+                "last_update": "2021-04-16 04:50:14"
+            },
+            "nic": [
+                {
+                    "type": "eth",
+                    "mac": "7b:67:f4:99:72:5b",
+                    "ipv4": "27.246.137.137"
+                },
+                {
+                    "type": "wifi",
+                    "mac": "9c:02:40:3f:a3:fb",
+                    "ipv4": "33.161.116.123"
+                }
+            ],
+            "state": "off-line"
+        },
+        {
+            "id": "7680",
+            "name": "fiyp5",
+            "type": "controller",
+            "hardware": {
+                "model": "x86 PC",
+                "sn": "32rkmknb"
+            },
+            "software": {
+                "version": "10.3",
+                "last_update": "2021-04-17 14:10:48"
+            },
+            "nic": [
+                {
+                    "type": "eth",
+                    "mac": "da:ad:e1:8e:26:a9",
+                    "ipv4": "13.130.229.255"
+                }
+            ],
+            "state": "off-line"
+        }
+    ]
+}
