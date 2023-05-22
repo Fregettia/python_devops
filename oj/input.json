@@ -1,0 +1,49 @@
+[
+  {
+    "id": "string",
+    "name": "string",
+    "type": "string",
+    "hardware": {
+      "model": "string",
+      "sn": "string"
+    },
+    "software": {
+      "version": "string",
+      "last_update": "string"
+    },
+    "nic": [
+      {
+        "type": "eth|wifi",
+        "mac": "string",
+        "ipv4": "string"
+      },
+      {
+        "type": "4g",
+        "imei": "string",
+        "ipv4": "string"
+      }
+    ],
+    "status": "on-line|off-line"
+  },
+  {
+    "id": "string",
+    "name": "string",
+    "type": "string",
+    "hardware": {
+      "model": "string",
+      "sn": "string"
+    },
+    "software": {
+      "version": "string",
+      "last_update": "string"
+    },
+    "nic": [
+      {
+        "type": "eth|wifi",
+        "mac": "string",
+        "ipv4": "string"
+      }
+    ],
+    "status": "on-line|off-line"
+  }
+]
