@@ -1,0 +1,2 @@
+user1:pwd1:user1Okinawa
+user2:pwd2:user2Okinawa
