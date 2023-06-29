@@ -1,3 +1,4 @@
+
 {
   "method": "ADD",
   "data": [
@@ -5,13 +6,14 @@
       "id": "000001",
       "name": "z3tgs",
       "type": "controller",
+      "description": "Sample description",
+      "creation_time": "2023-06-29 12:00:00",
+      "update_time": "2023-06-29 12:05:00",
+      "state": "off-line",
+      "secret": "4hMiDrns7CjLVn",      
       "hardware": {
         "model": "Raspberry Pi 4",
         "sn": "gc7x2u78"
-      },
-      "software": {
-        "version": "1.5",
-        "last_update": "2021-06-15 14:27:38"
       },
       "nic": [
         {
@@ -25,7 +27,16 @@
           "ipv4": "254.156.195.55"
         }
       ],
-      "state": "off-line"
+      "software": {
+        "version": "2",
+        "last_update": "2021-06-17 17:55:33",
+        "state": "active"
+      },
+      "business_software": {
+        "version": "1.5",
+        "last_update": "2021-06-15 14:27:38",
+        "state": "active"
+      } 
     }
   ]
 }

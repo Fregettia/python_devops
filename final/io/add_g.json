@@ -1,0 +1,12 @@
+{
+    "method": "ADD_GROUP",
+    "data": [
+        {
+            "group_id": 2,
+            "group_name": "example",
+            "group_description": "example_group",
+            "creation_time": "2023-06-29 22:15:45",
+            "update_time": "2023-06-29 22:16:10"
+          }          
+    ]
+  }

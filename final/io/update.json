@@ -1,0 +1,43 @@
+
+{
+  "method": "UPDATE",
+  "data": [
+    {
+      "id": "000001",
+      "name": "z3tgs",
+      "type": "controller",
+      "description": "Sample description",
+      "creation_time": "2023-06-29 12:00:00",
+      "update_time": "2023-06-29 12:05:00",
+      "state": "off-line",
+      "secret": "4hMiDrns7CjLVn",      
+      "group_id": null,
+      "hardware": {
+        "model": "Raspberry Pi 4",
+        "sn": "gc7x2u78"
+      },
+      "nic": [
+        {
+          "type": "eth",
+          "mac": "13:68:fd:25:8e:a7",
+          "ipv4": "32.13.84.210"
+        },
+        {
+          "type": "wifi",
+          "mac": "59:d4:2e:48:cb:22",
+          "ipv4": "254.156.195.55"
+        }
+      ],
+      "software": {
+        "version": "2",
+        "last_update": "2021-06-17 17:55:33",
+        "state": "active"
+      },
+      "business_software": {
+        "version": "2",
+        "last_update": "2021-06-15 14:27:38",
+        "state": "active"
+      } 
+    }
+  ]
+}
