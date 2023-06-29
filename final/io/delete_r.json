@@ -1,0 +1,4 @@
+{
+  "method": "DELETE_DEVICE_GROUP_RELATIONSHIP",
+  "data": [{ "device_id": "000001", "group_id": 2 }]
+}

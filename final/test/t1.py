@@ -72,51 +72,70 @@ def json2sql(input_file, cursor):
 
     elif method == "QUERY_DEVICE_GROUP":
         for id in input_data:
-            sql = f"SELECT device.*, device_group.* FROM device LEFT JOIN device_group ON device.group_id = device_group.group_id WHERE id = {id}"
+            sql = f"SELECT device.*, device_group.* FROM device JOIN device_group_membership ON device.id = device_group_membership.device_id JOIN device_group ON device_group_membership.group_id = device_group.group_id WHERE device.id = {id}"
             cursor.execute(sql)
             result = cursor.fetchall()
             print(result)
-
     elif method == "QUERY_ALL_DEVICE_GROUP":
-        sql = "SELECT device.*, device_group.* FROM device LEFT JOIN device_group ON device.group_id = device_group.group_id"
+        sql = "SELECT device.*, device_group.* FROM device JOIN device_group_membership ON device.id = device_group_membership.device_id JOIN device_group ON device_group_membership.group_id = device_group.group_id"
         cursor.execute(sql)
         result = cursor.fetchall()
         print(result)
-
     elif method == "ADD_GROUP":
         for group in input_data:
             columns = ', '.join(group.keys())
             values = ', '.join(['%s'] * len(group))
             sql = f"INSERT INTO device_group ({columns}) VALUES ({values})"
             cursor.execute(sql, tuple(group.values()))
-
     elif method == "DELETE_GROUP":
         for id in input_data:
-            # 在删除分组之前，首先要更新属于该分组的设备的分组信息
-            sql = f"UPDATE device SET group_id = NULL WHERE group_id = {id}"
+            # 先删除该分组的所有设备关联
+            sql = f"DELETE FROM device_group_membership WHERE group_id = {id}"
             cursor.execute(sql)
             # 然后再删除分组
             sql = f"DELETE FROM device_group WHERE group_id = {id}"
             cursor.execute(sql)
-
     elif method == "QUERY_GROUP":
         for id in input_data:
             sql = f"SELECT * FROM device_group WHERE group_id = {id}"
             cursor.execute(sql)
             result = cursor.fetchall()
             print(result)
-
     elif method == "UPDATE_GROUP":
         for group in input_data:
             set_clause = ', '.join([f"{key} = %s" for key in group.keys()])
             sql = f"UPDATE device_group SET {set_clause} WHERE group_id = %s"
             cursor.execute(sql, tuple(group.values()) + (group['group_id'],))
-
     elif method == "QUERY_ALL_GROUPS":
         sql = "SELECT * FROM device_group"
         cursor.execute(sql)
         result = cursor.fetchall()
         print(result)
+
+    elif method == "ADD_DEVICE_GROUP_RELATIONSHIP":
+        for relationship in input_data:
+            sql = f"INSERT INTO device_group_membership (device_id, group_id) VALUES (%s, %s)"
+            cursor.execute(sql, (relationship['device_id'], relationship['group_id']))
+    elif method == "DELETE_DEVICE_GROUP_RELATIONSHIP":
+        for relationship in input_data:
+            sql = f"DELETE FROM device_group_membership WHERE device_id = %s AND group_id = %s"
+            cursor.execute(sql, (relationship['device_id'], relationship['group_id']))
+    elif method == "QUERY_DEVICE_BY_GROUP":
+        for group_id in input_data:
+            sql = f"SELECT device.* FROM device JOIN device_group_membership ON device.id = device_group_membership.device_id WHERE device_group_membership.group_id = {group_id}"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            print(result)
+    elif method == "QUERY_GROUPS_BY_DEVICE":
+        for device_id in input_data:
+            sql = f"SELECT device_group.* FROM device_group JOIN device_group_membership ON device_group.group_id = device_group_membership.group_id WHERE device_group_membership.device_id = {device_id}"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            print(result)
+    elif method == "DELETE_GROUPS_BY_DEVICE":
+        for device_id in input_data:
+            sql = f"DELETE FROM device_group_membership WHERE device_id = {device_id}"
+            cursor.execute(sql)
 
     mydb.commit()
 
@@ -128,6 +147,6 @@ if __name__ == "__main__":
     mycursor = mydb.cursor()
 
     json2sql(
-        r"final\io\add_g.json",
+        r"final\io\add_r.json",
         mycursor,
     )
