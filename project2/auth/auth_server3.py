@@ -60,16 +60,55 @@ async def auth(request):
         return response.json({'status': -1, 'msg': 'fail'})
 
 
-@app.websocket('/echo')
-async def echo(request, ws):
-    token = request.args.get('auth')
+@app.post('/log')
+async def log(request):
+    token = request.json.get('auth')
     device_id = validate_token(token)
     if device_id is None:
         raise Unauthorized("Invalid token")
 
-    while True:
-        data = await ws.recv()
-        await ws.send(data)
+    data = request.json.get('data')
+    print(data)
+
+    async with pool.acquire() as conn:
+        async with conn.cursor() as cur:
+            columns = ', '.join(data.keys())
+            values_placeholders = ', '.join(['%s'] * len(data))
+            sql = f"INSERT INTO status_log ({columns}) VALUES ({values_placeholders})"
+
+            values = tuple(data[key] for key in data)
+
+            await cur.execute(sql, values)
+            await conn.commit()
+
+    return response.json({'status': 0, 'msg': 'ok'})
+
+
+@app.post('/command')
+async def command(request):
+    token = request.json.get('auth')
+    device_id = validate_token(token)
+    if device_id is None:
+        raise Unauthorized("Invalid token")
+
+    command = request.json.get('command')
+    if command == 'reboot':
+        # Send the reboot command to the device
+        # This would typically be done through a HTTP request or some other form of IPC
+        # For this example, we will just print the command
+        print(f'Sending reboot command to device {device_id}')
+    elif command == 'upload_logs':
+        directory = request.json.get('directory')
+        # Send the upload_logs command to the device
+        # This would typically be done through a HTTP request or some other form of IPC
+        # For this example, we will just print the command
+        print(
+            f'Sending upload_logs command to device {device_id} with directory {directory}'
+        )
+    else:
+        return response.json({'status': -1, 'msg': 'Invalid command'})
+
+    return response.json({'status': 0, 'msg': 'Command sent'})
 
 
 if __name__ == "__main__":
