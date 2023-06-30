@@ -11,28 +11,6 @@ db_file = sys.argv[2]
 
 app = Sanic("DeviceAPI")
 
-columns = [
-    "id",
-    "name",
-    "type",
-    "hardware_model",
-    "hardware_sn",
-    "software_version",
-    "software_last_update",
-    "nic1_type",
-    "nic1_mac",
-    "nic1_ipv4",
-    "nic2_type",
-    "nic2_mac",
-    "nic2_ipv4",
-    "state",
-]
-
-
-# if not os.path.exists(db_file):
-#     df = pd.DataFrame(columns=columns)
-#     df.to_csv(db_file, index=False)
-
 
 def flatten_device(device):
     return {
