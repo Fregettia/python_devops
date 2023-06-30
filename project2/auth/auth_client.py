@@ -5,13 +5,13 @@ import websockets
 
 
 async def main():
-    domain_name, username, password = sys.argv[1:4]
+    domain_name, device_id, device_password = sys.argv[1:4]
 
     # Get token
     async with aiohttp.ClientSession() as session:
         async with session.post(
             f'http://{domain_name}/auth',
-            json={'username': username, 'password': password},
+            json={'device_id': device_id, 'device_password': device_password},
         ) as resp:
             data = await resp.json()
             if data['status'] == -1:
@@ -24,7 +24,9 @@ async def main():
             print(token)
 
     # Connect to websocket
-    async with websockets.connect(f'ws://{domain_name}/echo?auth={token}') as ws:
+    async with websockets.connect(
+        f'ws://{domain_name}/echo?id={device_id}&auth={token}'
+    ) as ws:
         while True:
             line = input()
             if line == 'exit':

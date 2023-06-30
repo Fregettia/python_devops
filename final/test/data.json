@@ -1,0 +1,14 @@
+{
+  "log_id": 123456789,
+  "device_id": "ABC123",
+  "timestamp": "2023-06-30T10:30:15",
+  "user_cpu_time": 10.5,
+  "system_cpu_time": 5.2,
+  "idle_cpu_time": 80.3,
+  "io_wait_cpu_time": 3.0,
+  "total_memory": 8,
+  "free_memory": 2,
+  "buff_cache": 1,
+  "disk_size": 500,
+  "root_directory_usage": 50.0
+}
