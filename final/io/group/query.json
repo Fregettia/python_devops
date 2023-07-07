@@ -1,6 +1,6 @@
 {
     "method": "QUERY_DEVICE_GROUP",
     "data": [
-        "000002"
+        "2"
     ]
 }

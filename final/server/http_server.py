@@ -41,8 +41,8 @@ def flatten_device(device):
     }
 
 
-@app.post("/v1/devices/ADD")
-async def add_device(request: Request):
+@app.post("/v1/devices/CREATE_DEVICE")
+async def create_device(request: Request):
     input_data = request.json
     for device in input_data:
         flat_device = flatten_device(device)
@@ -54,8 +54,18 @@ async def add_device(request: Request):
     return json({"status": "success", "data": None})
 
 
-@app.post("/v1/devices/UPDATE")
-async def update_device(request: Request):
+@app.post("/v1/devices/DELETE_DEVICE")
+async def delete_device_by_id(request: Request):
+    input_data = request.json
+    for id in input_data:
+        sql = f"DELETE FROM device WHERE id = {id}"
+        mycursor.execute(sql)
+    mydb.commit()
+    return json({"status": "success", "data": None})
+
+
+@app.post("/v1/devices/UPDATE_DEVICE")
+async def update_device_by_id(request: Request):
     input_data = request.json
     for device in input_data:
         flat_device = flatten_device(device)
@@ -67,18 +77,8 @@ async def update_device(request: Request):
     return json({"status": "success", "data": None})
 
 
-@app.post("/v1/devices/DELETE")
-async def delete_device(request: Request):
-    input_data = request.json
-    for id in input_data:
-        sql = f"DELETE FROM device WHERE id = {id}"
-        mycursor.execute(sql)
-    mydb.commit()
-    return json({"status": "success", "data": None})
-
-
-@app.post("/v1/devices/QUERY")
-async def query_device(request: Request):
+@app.post("/v1/devices/QUERY_DEVICE")
+async def query_device_by_id(request: Request):
     input_data = request.json
     for id in input_data:
         sql = f"SELECT * FROM device WHERE id = {id}"
@@ -87,7 +87,7 @@ async def query_device(request: Request):
     return json({"status": "success", "data": result})
 
 
-@app.post("/v1/devices/QUERY_ALL")
+@app.post("/v1/devices/QUERY_ALL_DEVICE")
 async def query_all_devices(request: Request):
     sql = "SELECT * FROM device"
     mycursor.execute(sql)
@@ -95,26 +95,8 @@ async def query_all_devices(request: Request):
     return json({"status": "success", "data": result})
 
 
-@app.post("/v1/devices/QUERY_DEVICE_GROUP")
-async def query_device_group(request: Request):
-    input_data = request.json
-    for device_id in input_data:
-        sql = f"SELECT device_group.* FROM device_group JOIN device_group_membership ON device_group.group_id = device_group_membership.group_id WHERE device_group_membership.device_id = {device_id}"
-        mycursor.execute(sql)
-        result = mycursor.fetchall()
-    return json({"status": "success", "data": result})
-
-
-@app.post("/v1/devices/QUERY_ALL_DEVICE_GROUP")
-async def query_all_device_group(request: Request):
-    sql = "SELECT * FROM device_group"
-    mycursor.execute(sql)
-    result = mycursor.fetchall()
-    return json({"status": "success", "data": result})
-
-
-@app.post("/v1/devices/ADD_GROUP")
-async def add_device_group(request: Request):
+@app.post("/v1/devices/CREATE_GROUP")
+async def create_device_group(request: Request):
     input_data = request.json
     for group in input_data:
         columns = ', '.join(group.keys())
@@ -125,8 +107,18 @@ async def add_device_group(request: Request):
     return json({"status": "success", "data": None})
 
 
+@app.post("/v1/devices/DELETE_GROUP")
+async def delete_group_by_id(request: Request):
+    input_data = request.json
+    for id in input_data:
+        sql = f"DELETE FROM device_group WHERE group_id = {id}"
+        mycursor.execute(sql)
+    mydb.commit()
+    return json({"status": "success", "data": None})
+
+
 @app.post("/v1/devices/UPDATE_GROUP")
-async def update_device_group(request: Request):
+async def update_group_by_id(request: Request):
     input_data = request.json
     for group in input_data:
         sql = "UPDATE device_group SET "
@@ -137,18 +129,8 @@ async def update_device_group(request: Request):
     return json({"status": "success", "data": None})
 
 
-@app.post("/v1/devices/DELETE_GROUP")
-async def delete_device_group(request: Request):
-    input_data = request.json
-    for id in input_data:
-        sql = f"DELETE FROM device_group WHERE group_id = {id}"
-        mycursor.execute(sql)
-    mydb.commit()
-    return json({"status": "success", "data": None})
-
-
 @app.post("/v1/devices/QUERY_GROUP")
-async def query_device_group(request: Request):
+async def query_group_by_id(request: Request):
     input_data = request.json
     for id in input_data:
         sql = f"SELECT * FROM device_group WHERE group_id = {id}"
@@ -158,7 +140,7 @@ async def query_device_group(request: Request):
 
 
 @app.post("/v1/devices/QUERY_ALL_GROUP")
-async def query_all_device_group(request: Request):
+async def query_all_device_groups(request: Request):
     sql = "SELECT * FROM device_group"
     mycursor.execute(sql)
     result = mycursor.fetchall()
@@ -187,8 +169,38 @@ async def delete_device_group_relationship(request: Request):
     return json({"status": "success", "data": None})
 
 
+@app.post("/v1/devices/QUERY_DEVICE_AND_GROUP")
+async def query_device_and_group_by_id(request: Request):
+    input_data = request.json
+    for device_id in input_data:
+        sql = f"SELECT device_group.* FROM device_group JOIN device_group_membership ON device_group.group_id = device_group_membership.group_id WHERE device_group_membership.device_id = {device_id}"
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+    return json({"status": "success", "data": result})
+
+
+@app.post("/v1/devices/QUERY_GROUP_BY_DEVICE")
+async def query_groups_by_device_id(request: Request):
+    input_data = request.json
+    for device_id in input_data:
+        sql = f"SELECT device_group.* FROM device_group JOIN device_group_membership ON device_group.group_id = device_group_membership.group_id WHERE device_group_membership.device_id = {device_id}"
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+    return json({"status": "success", "data": result})
+
+
+@app.post("/v1/devices/DELETE_GROUP_BY_DEVICE")
+async def delete_groups_by_device_id(request: Request):
+    input_data = request.json
+    for device_id in input_data:
+        sql = f"DELETE FROM device_group_membership WHERE device_id = {device_id}"
+        mycursor.execute(sql)
+    mydb.commit()
+    return json({"status": "success", "data": None})
+
+
 @app.post("/v1/devices/QUERY_DEVICE_BY_GROUP")
-async def query_device_by_group(request: Request):
+async def query_devices_by_group_id(request: Request):
     input_data = request.json
     for group_id in input_data:
         sql = f"SELECT device.* FROM device JOIN device_group_membership ON device.id = device_group_membership.device_id WHERE device_group_membership.group_id = {group_id}"
@@ -197,13 +209,11 @@ async def query_device_by_group(request: Request):
     return json({"status": "success", "data": result})
 
 
-@app.post("/v1/devices/QUERY_GROUP_BY_DEVICE")
-async def query_group_by_device(request: Request):
-    input_data = request.json
-    for device_id in input_data:
-        sql = f"SELECT device_group.* FROM device_group JOIN device_group_membership ON device_group.group_id = device_group_membership.group_id WHERE device_group_membership.device_id = {device_id}"
-        mycursor.execute(sql)
-        result = mycursor.fetchall()
+@app.post("/v1/devices/QUERY_ALL_DEVICE_AND_GROUP")
+async def query_all_devices_and_groups(request: Request):
+    sql = "SELECT * FROM device_group"
+    mycursor.execute(sql)
+    result = mycursor.fetchall()
     return json({"status": "success", "data": result})
 
 

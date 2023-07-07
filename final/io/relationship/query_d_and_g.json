@@ -1,0 +1,4 @@
+{
+  "method": "QUERY_DEVICE_AND_GROUP",
+  "data": ["000002"]
+}

@@ -38,7 +38,7 @@ async def main():
                 break
 
             data = load_input_json(
-                r"C:\Users\yegvo\Documents\python_project\python_devops\final\test\data.json"
+                r"C:\Users\yegvo\Documents\python_project\python_devops\final\io\data.json"
             )
 
             async with session.post(

@@ -1,0 +1,4 @@
+{
+  "method": "QUERY_DEVICE_BY_GROUP",
+  "data": [2]
+}
